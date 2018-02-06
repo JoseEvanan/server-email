@@ -50,4 +50,4 @@ def send_confirmation(from_email, from_pass, to_email , subject='', description=
         server_smtp.close()
         return True, ''
     except Exception as error:
-        return False, error
+        return False, str(error)
