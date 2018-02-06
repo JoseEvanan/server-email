@@ -48,6 +48,6 @@ def send_confirmation(from_email, from_pass, to_email , subject='', description=
         server_smtp.login(from_email, from_pass)
         server_smtp.sendmail(from_email, to_email, mensaje.as_string())
         server_smtp.close()
-        return True
+        return True, ''
     except Exception as error:
-        return False
+        return False, error

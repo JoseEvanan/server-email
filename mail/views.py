@@ -10,15 +10,17 @@ from django.http import HttpResponse
 def send_email(request):
     if request.method == 'POST':
         """ POST Method """
-        print(request.POST)
         from_email = request.POST.get('from_email')
         from_pass = request.POST.get('from_pass')
         to_email = request.POST.get('to_email')
         description = request.POST.get('description')
         title = request.POST.get('title')
         subject = ""
-        is_send = send_confirmation(from_email, from_pass, to_email, subject, description, title)
-        return JsonResponse({'status': is_send})
+        is_send, error = send_confirmation(from_email, from_pass, to_email, subject, description, title)
+        response = {'status': is_send}
+        if not is_send:
+            response = {'status': is_send, 'error': error}
+        return JsonResponse(response)
     else:
         print("GET")
         return JsonResponse({'status': True})
